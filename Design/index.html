@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 INPUT 1 OUTPUT TEMPLATE</title>
+    <style>
+        /* STYLE FOR THE INPUT FIELD */
+        #charInput1, #charInput2 {
+            width: 50px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        /* STYLE FOR THE SUBMIT BUTTON */
+        #submitButton {
+            margin-top: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* STYLE FOR THE IMAGE */
+        #displayedImage {
+            display: none; /* Initially hidden */
+            margin-top: 10px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- INPUT FIELDS -->
+    <input type="text" id="charInput1" maxlength="1">
+    <input type="text" id="charInput2" maxlength="1">
+
+    <!-- BUTTON TO DISPLAY IMAGE -->
+    <button onclick="displayImage()" id="submitButton">Show Image</button>
+
+    <!-- IMAGE TO DISPLAY -->
+    <img id="displayedImage" src="" alt="Displayed Image">
+
+    <script>
+        function displayImage() {
+            const imgElement = document.getElementById("displayedImage");
+
+            // Get input values and convert to uppercase
+            const input1_letter = document.getElementById("charInput1").value.toUpperCase();
+            const input2_letter = document.getElementById("charInput2").value.toUpperCase();
+
+            // Ensure inputs are not empty
+            if (!input1_letter || !input2_letter) {
+                alert("Please enter a letter in both fields.");
+                return;
+            }
+
+            // Convert letters to ASCII numbers
+            const input1_number = input1_letter.charCodeAt(0);
+            const input2_number = input2_letter.charCodeAt(0);
+
+            // GIF URL
+            const gifURL = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWx2NnlvN3RocHVya2d3cXB5b2V0bXRqNXhyMGZkZG4wd3Zpdm13NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/o75ajIFH0QnQC3nCeD/giphy.gif";
+
+            // **Letter-based conditions**
+            if (input1_letter === "D" && input2_letter === "O") imgElement.src = gifURL;
+            else if (input1_letter === "R" && input2_letter === "E") imgElement.src = gifURL;
+            else if (input1_letter === "M" && input2_letter === "E") imgElement.src = gifURL;
+            else if (input1_letter === "F" && input2_letter === "A") imgElement.src = gifURL;
+            else if (input1_letter === "S" && input2_letter === "O") imgElement.src = gifURL;
+            else if (input1_letter === "L" && input2_letter === "A") imgElement.src = gifURL;
+            else if (input1_letter === "T" && input2_letter === "I") imgElement.src = gifURL;
+            // **Number-based condition**
+            else if (input1_number === 67 && input2_number === 68) imgElement.src = gifURL;
+            // **Math-based condition**
+            else if ((input1_number - input2_number) < 1) imgElement.src = gifURL;
+            else {
+                alert("No matching image for this combination.");
+                return;
+            }
+
+            // Display the image
+            imgElement.style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
