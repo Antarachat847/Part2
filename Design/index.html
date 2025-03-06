@@ -3,109 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2 INPUT 1 OUTPUT TEMPLATE</title>
+    <title>Write a Sound</title>
+    <link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Playfair+Display&display=swap" rel="stylesheet">
     <style>
-         body {
-    background-image: url('images/BG.png');
-    background-size: cover; /* Ensures the image covers the full screen */
-    background-position: center; /* Keeps the image centered */
-    background-attachment: fixed; /* Prevents scrolling issues */
-    background-repeat: no-repeat; /* Avoids repeating patterns */
-    height: 100vh; /* Full height of the viewport */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+        /* === Body Styling === */
+        body {
+            background-image: url('images/bk.png'); /* Default background */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 5%;
+            transition: background 0.5s ease-in-out;
+        }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    body {
-        background-size: contain; /* Adjusts the image to fit smaller screens */
-    }
-}
+        /* === Background Video Styling (Initially Hidden) === */
+        #bgVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Hidden by default */
+            z-index: -1;
+        }
 
-@media (max-width: 480px) {
-    body {
-        background-size: cover; /* Ensures it still looks good on small phones */
-    }
-}
+        /* === Title Styling (Before Play) === */
+        h1 {
+            color: white;
+            font-size: 100px;
+            text-transform: uppercase;
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Six Caps', sans-serif;
+            position: relative;
+            margin-bottom: 20px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        /* === Input Fields Styling === */
+        .input-container {
+            display: flex;
+            gap: 10px;
+            transition: all 0.5s ease-in-out;
+        }
+
         #charInput1, #charInput2 {
             width: 50px;
+            height: 40px;
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
+            background-color: #ffe100;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
         }
-        
 
-        /* STYLE FOR THE SUBMIT BUTTON */
+        /* === Play Button Styling === */
         #submitButton {
-            margin-top: 10px;
-            padding: 10px 15px;
-            font-size: 16px;
+            margin-top: 15px;
+            padding: 8px 16px;
+            font-size: 18px;
             cursor: pointer;
+            border: none;
+            background-color: black;
+            color: white;
+            font-weight: lighter;
+            font-family: 'Playfair Display', sans-serif;
+            border-radius: 5px;
+            transition: all 0.5s ease-in-out;
         }
 
-        /* STYLE FOR THE IMAGE */
-        #displayedImage {
-            display: none; /* Initially hidden */
-            margin-top: 10px;
-            width: 200px;
+        #submitButton:hover {
+            background-color: #333;
         }
+
+        /* === Image Styling === */
+        #displayedImage {
+            display: none;
+            margin-top: 15px;
+            width: 150px;
+        }
+
+        /* === When Play is Clicked: Move Everything to the Right & Change Title Color === */
+        .shift-right {
+            transform: translateX(30vw);
+        }
+
+        .title-black {
+            color: rgb(96, 11, 11) !important;
+        }
+        .button-colored {
+    background-color: rgb(96, 11, 11) !important; /* Matches title color */
+    color: white !important; /* Keep text readable */
+}
+
+/* === Responsive Adjustments === */
+@media (max-width: 1024px) { /* Tablets */
+    .shift-right {
+        transform: translateX(15vw); /* Less movement for smaller screens */
+    }
+}
+
+@media (max-width: 768px) { /* Small Tablets */
+    .shift-right {
+        transform: translateX(10vw); /* Moves slightly for better spacing */
+    }
+}
+
+@media (max-width: 480px) { /* Phones */
+    .shift-right {
+        transform: translateX(0); /* No movement on mobile for better fit */
+        text-align: center; /* Keeps layout clean */
+    }
+
+    h1 {
+        font-size: 60px; /* Smaller title on mobile */
+    }
+
+    #charInput1, #charInput2 {
+        width: 40px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    #submitButton {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+}
     </style>
 </head>
 <body>
 
-    <!-- INPUT FIELDS -->
-    <input type="text" id="charInput1" maxlength="1">
-    <input type="text" id="charInput2" maxlength="1">
+    <!-- Background Video -->
+    <video id="bgVideo" autoplay loop muted>
+        <source src="images/Jazzhandss.mp4" type="video/mp4"> <!-- This will change dynamically -->
+    </video>
 
-    <!-- BUTTON TO DISPLAY IMAGE -->
-    <button onclick="displayImage()" id="submitButton">Show Image</button>
+    <!-- Title -->
+    <h1 id="title">Write a Sound</h1>
 
-    <!-- IMAGE TO DISPLAY -->
+    <!-- Input Fields -->
+    <div class="input-container" id="inputContainer">
+        <input type="text" id="charInput1" maxlength="1">
+        <input type="text" id="charInput2" maxlength="1">
+    </div>
+
+    <!-- Button to Display Image, Play Sound, & Change Background -->
+    <button onclick="displayImageAndPlaySound()" id="submitButton">Play</button>
+
+    <!-- Image to Display -->
     <img id="displayedImage" src="" alt="Displayed Image">
 
+    <!-- Audio Elements (Multiple Sounds) -->
+    <audio id="sound1"><source src="images/DO.mp3" type="audio/mp3"></audio>
+    <audio id="sound2"><source src="images/RE.mp3" type="audio/mp3"></audio>
+    <audio id="sound3"><source src="images/ME.mp3" type="audio/mp3"></audio>
+    <audio id="sound4"><source src="sound4.mp3" type="audio/mp3"></audio>
+
     <script>
-        function displayImage() {
-            const imgElement = document.getElementById("displayedImage");
+       function displayImageAndPlaySound() {
+    const imgElement = document.getElementById("displayedImage");
+    const videoElement = document.getElementById("bgVideo");
+    const titleElement = document.getElementById("title");
+    const inputContainer = document.getElementById("inputContainer");
+    const buttonElement = document.getElementById("submitButton");
 
-            // Get input values and convert to uppercase
-            const input1_letter = document.getElementById("charInput1").value.toUpperCase();
-            const input2_letter = document.getElementById("charInput2").value.toUpperCase();
+    // Get input values and convert to uppercase
+    const input1_letter = document.getElementById("charInput1").value.toUpperCase();
+    const input2_letter = document.getElementById("charInput2").value.toUpperCase();
 
-            // Ensure inputs are not empty
-            if (!input1_letter || !input2_letter) {
-                alert("Please enter a letter in both fields.");
-                return;
-            }
+    // Ensure inputs are not empty
+    if (!input1_letter || !input2_letter) {
+        alert("Please enter a letter in both fields.");
+        return;
+    }
 
-            // Convert letters to ASCII numbers
-            const input1_number = input1_letter.charCodeAt(0);
-            const input2_number = input2_letter.charCodeAt(0);
+    // Background Video Mapping
+    const videoMapping = {
+        "DO": "images/Jazzhandss.mp4",
+        "RE": "video2.mp4",
+        "ME": "video3.mp4",
+        "FA": "video4.mp4"
+    };
 
-            // GIF URL
-            const gifURL = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWx2NnlvN3RocHVya2d3cXB5b2V0bXRqNXhyMGZkZG4wd3Zpdm13NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/o75ajIFH0QnQC3nCeD/giphy.gif";
+    // Sound Mapping
+    const soundMapping = {
+        "DO": document.getElementById("sound1"),
+        "RE": document.getElementById("sound2"),
+        "ME": document.getElementById("sound3"),
+        "FA": document.getElementById("sound4")
+    };
 
-            // **Letter-based conditions**
-            if (input1_letter === "D" && input2_letter === "O") imgElement.src = gifURL;
-            else if (input1_letter === "R" && input2_letter === "E") imgElement.src = gifURL;
-            else if (input1_letter === "M" && input2_letter === "E") imgElement.src = gifURL;
-            else if (input1_letter === "F" && input2_letter === "A") imgElement.src = gifURL;
-            else if (input1_letter === "S" && input2_letter === "O") imgElement.src = gifURL;
-            else if (input1_letter === "L" && input2_letter === "A") imgElement.src = gifURL;
-            else if (input1_letter === "T" && input2_letter === "I") imgElement.src = gifURL;
-            // **Number-based condition**
-            else if (input1_number === 67 && input2_number === 68) imgElement.src = gifURL;
-            // **Math-based condition**
-            else if ((input1_number - input2_number) < 1) imgElement.src = gifURL;
-            else {
-                alert("No matching image for this combination.");
-                return;
-            }
+    const combination = input1_letter + input2_letter;
 
-            // Display the image
-            imgElement.style.display = "block";
+    // ✅ If a valid combination is entered, change everything as usual
+    if (videoMapping[combination]) {
+        videoElement.src = videoMapping[combination];
+        videoElement.style.display = "block"; // Show video
+
+        // Play sound
+        if (soundMapping[combination]) {
+            soundMapping[combination].play();
         }
+
+        // Move text & button to the right and change colors
+        titleElement.classList.add("shift-right", "title-black");
+        inputContainer.classList.add("shift-right");
+        buttonElement.classList.add("shift-right", "button-colored");
+
+    } else {
+        // ❌ If incorrect input, RESET EVERYTHING to original state
+        alert("Invalid combination! Resetting...");
+
+        // Reset Title
+        titleElement.classList.remove("shift-right", "title-black");
+
+        // Reset Inputs & Button
+        inputContainer.classList.remove("shift-right");
+        buttonElement.classList.remove("shift-right", "button-colored");
+
+        // Reset Background
+        videoElement.style.display = "none"; // Hide video
+        document.body.style.backgroundImage = "url('images/bk.png')"; // Reset to original background
+
+        // Reset Inputs
+        document.getElementById("charInput1").value = "";
+        document.getElementById("charInput2").value = "";
+
+        // Hide Image
+        imgElement.style.display = "none";
+    }
+}
+
     </script>
 
 </body>
