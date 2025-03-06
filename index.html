@@ -8,7 +8,7 @@
     <style>
        /* === General Body Styling === */
 body {
-    background-image: url('images/bk.png'); /* Default background */
+    background-image: url('images/bg.jpg'); /* Default background */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -40,13 +40,18 @@ h1 {
     font-size: 100px;
     text-transform: uppercase;
     text-align: center;
-    font-weight: bold;
+    font-weight: lighter;
     font-family: 'Six Caps', sans-serif;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     transition: all 0.5s ease-in-out;
 }
-
+h2{
+    font-size: 14px;
+    font-family: 'Playfair Display', sans-serif; 
+    font-style: italic;
+    color: rgb(254, 254, 254);
+}
 /* === Input Fields Styling === */
 .input-container {
     display: flex;
@@ -55,8 +60,8 @@ h1 {
 }
 
 #charInput1, #charInput2 {
-    width: 50px;
-    height: 40px;
+    width: 90px;
+    height: 30px;
     text-align: center;
     font-size: 18px;
     background-color: #ffe100;
@@ -70,13 +75,14 @@ h1 {
 #submitButton {
     margin-top: 15px;
     padding: 8px 16px;
-    font-size: 18px;
+    font-size: 14px;
     cursor: pointer;
     border: none;
     background-color: black;
     color: white;
     font-weight: lighter;
     font-family: 'Playfair Display', sans-serif;
+    font-style: italic;
     border-radius: 5px;
     transition: all 0.5s ease-in-out;
 }
@@ -164,7 +170,8 @@ h1 {
     </video>
 
     <!-- Title -->
-    <h1 id="title">Write a Sound</h1>
+    <h1 id="title">Type a Tune</h1>
+    <h2 id="subtitle">Enter a musical note and press play</h2>
 
     <!-- Input Fields -->
     <div class="input-container" id="inputContainer">
